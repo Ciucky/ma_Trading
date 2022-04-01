@@ -12,21 +12,21 @@ import java.util.HashMap;
 public class Apple_signal {
 
 	public static void main(String[] args) {
-		int c = 0;
+		int key = 0;
 		// TODO Auto-generated method stub
-		HashMap<String, List<List<String>>> apple = new HashMap<String, List<List<String>>>();
+		HashMap<Integer, List<String>> apple = new HashMap<Integer, List<String>>();
 		try (CSVReader csvReader = new CSVReader(new FileReader("HistoricalQuotesEdited.csv"));) {
 		    String[] values = null;
 		    while ((values = csvReader.readNext()) != null) {
-				List<String> arr = new ArrayList<String>();
-		    	for(int i = 1; i <= 5; i++) {
-		        arr.add(values[i]);
-		    	}		
+				//List<String> arr = new ArrayList<String>();
+		    	//for(int i = 1; i <= 5; i++) {
+		        //arr.add(values[i]);
+		    	//}		
 		    	//System.out.println(arr);
 		        //array.add(Arrays.asList(arr));
 		        
-		        apple.put(values[0], Arrays.asList(arr));
-		        
+		        apple.put(key, Arrays.asList(values));
+		        key = key+1;
 		        /*
 		        if(c < 3) {
 				//System.out.println(values[0]);
@@ -55,7 +55,29 @@ public class Apple_signal {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(apple.get("02/28/2020"));
+		int s = 0, e = 19;
+		double sum = 0;
+		while(e < apple.size()-1) {
+			for(int i = s; i<=e; i++) {
+				sum = sum + Double.parseDouble(apple.get(i).get(1));
+			}
+			e = e+1;
+			s = s+1;
+			System.out.println();
+	        System.out.println("sum =" + sum);
+			sum = sum/20; //calculate 20 MA
+			System.out.println();
+	        System.out.println("sum =" + sum);
+			List<String> temp = new ArrayList<String>();
+			temp.addAll(apple.get(e));
+			//System.out.println();
+	        //System.out.println("temp =" + temp);
+	        temp.add(Double.toString(sum));
+	        //System.out.println();
+	        //System.out.println("temp =" + temp);
+	        apple.put(e, temp);
+		}
+		System.out.println(apple.get(20));
 	}
 
 }
