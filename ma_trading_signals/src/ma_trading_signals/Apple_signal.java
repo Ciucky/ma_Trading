@@ -63,11 +63,7 @@ public class Apple_signal {
 			}
 			e = e+1;
 			s = s+1;
-			System.out.println();
-	        System.out.println("sum =" + sum);
-			sum = sum/20; //calculate 20 MA
-			System.out.println();
-	        System.out.println("sum =" + sum);
+			sum = sum/20; //calculate 20 MA		
 			List<String> temp = new ArrayList<String>();
 			temp.addAll(apple.get(e));
 			//System.out.println();
@@ -76,6 +72,36 @@ public class Apple_signal {
 	        //System.out.println();
 	        //System.out.println("temp =" + temp);
 	        apple.put(e, temp);
+		}
+		
+		boolean oportunity = false;
+		boolean mastart = false;
+		int shares = 0;
+		for (List<String> value : apple.values()) {
+			if(value.get(0).equals("03/30/2010"))
+				mastart = true;
+			if(mastart == true) {
+				if(oportunity == true && Double.parseDouble(value.get(3)) >= Double.parseDouble(value.get(6))) {
+					System.out.println("Open price is above 20MA");
+					System.out.println("Bought 1 share on " + value.get(0) + " at the price " + value.get(3) + "$");
+					shares = shares + 1;
+				}
+				else
+					oportunity = false;
+				if(Double.parseDouble(value.get(1)) < Double.parseDouble(value.get(6))) {
+					System.out.println("Price closed under 20MA on " + value.get(0));
+					//System.out.println("Close " + value.get(1) + " MA " + value.get(6));
+					oportunity = true;
+				}
+				if(oportunity == true && Double.parseDouble(value.get(1)) > Double.parseDouble(value.get(6))) {
+					System.out.println("Price is just closed above 20MA. Buy on open if still above");
+					//System.out.println("Bought 1 share on " + value.get(0) + " ");
+					
+				}
+				if(Double.parseDouble(value.get(1)) > Double.parseDouble(value.get(6))) {
+					
+				}
+			}
 		}
 		System.out.println(apple.get(20));
 	}
