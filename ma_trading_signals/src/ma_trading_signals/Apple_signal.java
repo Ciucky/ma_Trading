@@ -15,7 +15,7 @@ public class Apple_signal {
 		int c = 0;
 		// TODO Auto-generated method stub
 		HashMap<String, List<List<String>>> apple = new HashMap<String, List<List<String>>>();
-		try (CSVReader csvReader = new CSVReader(new FileReader("HistoricalQuotes.csv"));) {
+		try (CSVReader csvReader = new CSVReader(new FileReader("HistoricalQuotesEdited.csv"));) {
 		    String[] values = null;
 		    while ((values = csvReader.readNext()) != null) {
 				List<String> arr = new ArrayList<String>();
